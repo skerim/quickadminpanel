@@ -7,4 +7,5 @@ return [
     'available_languages' => [
         'pl' => 'Polish',
     ],
+    'registration_default_role' => '2',
 ];

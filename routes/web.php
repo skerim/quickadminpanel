@@ -9,7 +9,7 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -24,6 +24,46 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
+
+    // Producer
+    Route::delete('producers/destroy', 'ProducerController@massDestroy')->name('producers.massDestroy');
+    Route::resource('producers', 'ProducerController');
+
+    // Type
+    Route::delete('types/destroy', 'TypeController@massDestroy')->name('types.massDestroy');
+    Route::resource('types', 'TypeController');
+
+    // Crane
+    Route::delete('cranes/destroy', 'CraneController@massDestroy')->name('cranes.massDestroy');
+    Route::post('cranes/parse-csv-import', 'CraneController@parseCsvImport')->name('cranes.parseCsvImport');
+    Route::post('cranes/process-csv-import', 'CraneController@processCsvImport')->name('cranes.processCsvImport');
+    Route::resource('cranes', 'CraneController');
+
+    // Customer
+    Route::delete('customers/destroy', 'CustomerController@massDestroy')->name('customers.massDestroy');
+    Route::resource('customers', 'CustomerController');
+
+    // Project
+    Route::delete('projects/destroy', 'ProjectController@massDestroy')->name('projects.massDestroy');
+    Route::post('projects/media', 'ProjectController@storeMedia')->name('projects.storeMedia');
+    Route::post('projects/ckmedia', 'ProjectController@storeCKEditorImages')->name('projects.storeCKEditorImages');
+    Route::resource('projects', 'ProjectController');
+
+    // Rental
+    Route::delete('rentals/destroy', 'RentalController@massDestroy')->name('rentals.massDestroy');
+    Route::resource('rentals', 'RentalController');
+
+    // Audit Logs
+    Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
+
+    // Report
+    Route::delete('reports/destroy', 'ReportController@massDestroy')->name('reports.massDestroy');
+    Route::post('reports/parse-csv-import', 'ReportController@parseCsvImport')->name('reports.parseCsvImport');
+    Route::post('reports/process-csv-import', 'ReportController@processCsvImport')->name('reports.processCsvImport');
+    Route::resource('reports', 'ReportController');
+
+    Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
+    Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
