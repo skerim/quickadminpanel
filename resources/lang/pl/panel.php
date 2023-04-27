@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'site_title' => 'eUTB',
+    'site_title' => 'eUTB 0.5',
+
 ];

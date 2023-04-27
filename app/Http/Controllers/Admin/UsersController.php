@@ -27,7 +27,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $roles = Role::all()->pluck('title', 'id');
+        $roles = Role::pluck('title', 'id');
 
         return view('admin.users.create', compact('roles'));
     }
@@ -44,7 +44,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $roles = Role::all()->pluck('title', 'id');
+        $roles = Role::pluck('title', 'id');
 
         $user->load('roles');
 
@@ -79,7 +79,11 @@ class UsersController extends Controller
 
     public function massDestroy(MassDestroyUserRequest $request)
     {
-        User::whereIn('id', request('ids'))->delete();
+        $users = User::find(request('ids'));
+
+        foreach ($users as $user) {
+            $user->delete();
+        }
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
