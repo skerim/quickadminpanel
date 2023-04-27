@@ -9,4 +9,32 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Users
     Route::apiResource('users', 'UsersApiController');
+
+    // Producer
+    Route::apiResource('producers', 'ProducerApiController');
+
+    // Type
+    Route::apiResource('types', 'TypeApiController');
+
+    // Crane
+    Route::apiResource('cranes', 'CraneApiController');
+
+    // Customer
+    Route::apiResource('customers', 'CustomerApiController');
+
+    // Project
+    Route::post('projects/media', 'ProjectApiController@storeMedia')->name('projects.storeMedia');
+    Route::apiResource('projects', 'ProjectApiController');
+
+    // Rental
+    Route::apiResource('rentals', 'RentalApiController');
+
+    // Maintenance
+    Route::apiResource('maintenances', 'MaintenanceApiController');
+
+    // Raport
+    Route::apiResource('raports', 'RaportApiController');
+
+    // Servis
+    Route::apiResource('servis', 'ServisApiController');
 });

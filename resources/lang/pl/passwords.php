@@ -7,4 +7,5 @@ return [
     'token'    => 'Ten token resetowania hasła jest nieprawidłowy.',
     'user'     => 'Nie możemy znaleźć użytkownika z tym adresem e-mail.',
     'updated'  => 'Twoje hasło zostało zmienione',
+
 ];
